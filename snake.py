@@ -25,14 +25,15 @@ def its_snake(snake_move, snake):
     for i in snake:
         pygame.draw.rect(screen, RED, [i[0], i[1], snake_move, snake_move])
 
+
 def message(txt, color):
     text = font.render(txt, False, color)
     screen.blit(text, [HEIGHT / 5, WIDTH / 3])
 
+
 def score(score):
     value = font.render("Score: " + str(score), False, (0, 0, 0))
     screen.blit(value, [0, 0])
-
 
 
 def gameLoop():
@@ -59,7 +60,6 @@ def gameLoop():
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        # game = False
                         pygame.quit()
                         quit()
                     elif event.key == pygame.K_e:
@@ -113,11 +113,10 @@ def gameLoop():
             dot_y = round(random.randrange(0, WIDTH - snake_move) / 10.0) * 10.0
             snake_length += 1
 
-
         clock.tick(snake_speed)
-
 
     pygame.quit()
     quit()
+
 
 gameLoop()
