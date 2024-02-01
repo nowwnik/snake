@@ -39,20 +39,20 @@ def gameLoop():
     game = True
     game_close = False
 
-    x, y = WIDTH / 2, HEIGHT / 2
+    x, y = HEIGHT / 2, WIDTH / 2
     x_move, y_move = 0, 0
 
     snake = []
     snake_length = 1
 
-    dot_x = round(random.randrange(0, WIDTH - 2*snake_move) / 10.0) * 10.0 - 10
-    dot_y = round(random.randrange(0, HEIGHT - 2*snake_move) / 10.0) * 10.0 - 10
+    dot_x = round(random.randrange(0, HEIGHT - snake_move) / 10.0) * 10.0 - 10
+    dot_y = round(random.randrange(0, WIDTH - snake_move) / 10.0) * 10.0 - 10
 
     while game:
 
         while game_close == True:
             screen.fill(BackGround)
-            message(f"Змейка умерла! Q - выйти, Е - играть снова", RED)
+            message("Змейка умерла!  Q - выйти, Е - играть снова", RED)
             score(snake_length - 1)
             pygame.display.update()
 
@@ -109,8 +109,8 @@ def gameLoop():
         pygame.display.update()
 
         if x == dot_x and y == dot_y:
-            dot_x = round(random.randrange(0, WIDTH - 2*snake_move) / 10.0) * 10.0
-            dot_y = round(random.randrange(0, HEIGHT - 2*snake_move) / 10.0) * 10.0
+            dot_x = round(random.randrange(0, HEIGHT - snake_move) / 10.0) * 10.0
+            dot_y = round(random.randrange(0, WIDTH - snake_move) / 10.0) * 10.0
             snake_length += 1
 
 
