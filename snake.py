@@ -1,4 +1,3 @@
-import time
 import random
 import pygame
 
@@ -36,7 +35,34 @@ def score(score):
     screen.blit(value, [0, 0])
 
 
+def final_score(score):
+    value = font.render("Score: " + str(score), False, (0, 0, 0))
+    screen.blit(value, [HEIGHT / 2 - 40, WIDTH / 3 + 80])
+    return value
+
+
+def get_record():
+    try:
+        with open('record') as f:
+            return f.readline()
+    except FileNotFoundError:
+        with open('record', 'w') as f:
+            f.write('0')
+
+
+def set_record(record, score):
+    rec = max(int(record), score)
+    with open('record', 'w') as f:
+        f.write(str(rec))
+
+
+def print_record(record):
+    value = font.render("record: " + str(record), False, (0, 0, 0))
+    screen.blit(value, [HEIGHT / 2 - 45, WIDTH / 3 + 40])
+
+
 def gameLoop():
+    record = get_record()
     game = True
     game_close = False
 
@@ -54,13 +80,14 @@ def gameLoop():
         while game_close == True:
             screen.fill(BackGround)
             message("Змейка умерла!  Q - выйти, Е - играть снова", RED)
-            score(snake_length - 1)
+            final_score(snake_length - 1)
+            set_record(record, snake_length - 1)
+            print_record(record)
             pygame.display.update()
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        pygame.quit()
                         quit()
                     elif event.key == pygame.K_e:
                         gameLoop()
@@ -115,8 +142,6 @@ def gameLoop():
 
         clock.tick(snake_speed)
 
-    pygame.quit()
     quit()
-
 
 gameLoop()
